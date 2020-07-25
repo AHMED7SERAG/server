@@ -20,13 +20,13 @@ trait GeneralTrait
     }
 
 
-    public function returnSuccessMessage($msg = "", $errNum = "S000" ,$access_token = "")
+    public function returnSuccessMessage($msg = "", $errNum = "S000" )
     {
         return [
             'status' => true,
             'errNum' => $errNum,
             'msg' => $msg,
-            'access_token' => $access_token,
+            
         ];
     }
 

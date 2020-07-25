@@ -16,7 +16,8 @@ use Illuminate\Notifications\Notifiable;
             'name', 'username','email', 'password','photo',
         ];
         protected $hidden = [
-            'password',
+            'password','email_verified_at',
+            'remember_token'
         ];
         public function getPhotoAttribute($val)
         {

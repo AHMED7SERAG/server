@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Models\Admin;
 use App\Traits\GeneralTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Validator;
 class LoginController extends Controller
@@ -38,9 +39,9 @@ class LoginController extends Controller
                
                 //login
                 if($token = auth()->guard('admins')->attempt($credentials)){
-                    $admin=Admin::where('email',$request->email)->get();
-                    return $this->returnSuccessMessage("تم تسجيل الدخول بنجاح","000",$token);
-                  //  return $this->returnData('admin',$admin,"تم تسجيل الدخول بنجاح");
+                    $admin=Auth::guard('admins')->user();
+                    $admin->access_token = $token;
+                  return $this->returnData('admin',$admin,"تم تسجيل الدخول بنجاح");
                    
                  }
                  else
@@ -55,11 +56,4 @@ class LoginController extends Controller
             auth()->logout();
             return $this->returnSuccessMessage( '000','تم تسجيل الخروج بنجاح');
         }
-    public function me()
-    {
-        
-        return response()->json(auth()->user());
-    
-    }
-
 }
